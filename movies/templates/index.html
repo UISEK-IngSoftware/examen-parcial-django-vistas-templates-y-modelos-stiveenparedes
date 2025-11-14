@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p class="p-2 text-center">Bienvenido a tu catálogo de películas</p>
+
+  <h3>Películas</h3>
+
+  <div class="row">
+    {% for movie in movies %}
+      <div class="col-xs-12 col-md-6 col-lg-4">
+        <div class="card mb-3">
+          <img src="{{ movie.picture.url }}" class="card-img-top" alt="{{ movie.title }}" />
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ movie.title|capfirst }}</h5>
+            <a href="{% url 'movies:detail' movie.id %}" class="btn btn-info btn-sm"><i class="fa-regular fa-eye"></i></a>
+            <a href="{% url 'movies:edit_movie' movie.id %}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
+            <a href="{% url 'movies:delete_movie' movie.id %}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted">No hay películas registradas.</p>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'movies:add_movie' %}" class="btn btn-success mb-3">Agregar Película</a>
+{% endblock %}
